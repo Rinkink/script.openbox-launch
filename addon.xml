@@ -24,7 +24,7 @@ v0.0.1~alpha  (2016-10-17)
 		<source></source>
 		<email>rinkink at gmail dot com</email>
 		<assets>
-			<icon></icon>
+			<icon>resources/icon.png</icon>
 			<fanart></fanart>
 			<screenshot></screenshot>
 			<!--<icon>resources/icon.png</icon>

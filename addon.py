@@ -1,4 +1,4 @@
-import logging, sys
+import logging, sys, subprocess
 
 from distutils.spawn import find_executable
 
@@ -8,15 +8,18 @@ import xbmcgui
 
 addon       = xbmcaddon.Addon()
 addonname   = addon.getAddonInfo('name')
-addon_handle = int(sys.argv[1])
+# addon_handle = int(sys.argv[1])
 
 #TODO: Log to /var or kodi user temp dir, set log level in settings
 logLevel = logging.getLevelName('DEBUG')
-logging.basicConfig(filename='/tmp/adon.log',level=logLevel)
+#logging.basicConfig(filename='/tmp/adon.log',level=logLevel)
+logging.basicConfig(stream=sys.stdout,level=logLevel)
+
+logging.debug(addonname + ' starting up.')
 
 toRun = addon.getSetting('torun') # returns the string 'true' or 'false'
-stopPlayback = true
- 
+stopPlayback = True
+
 # xbmcgui.Dialog().ok(addonname, line1, line2, line3)
 # steam_bin=`which steam`
 # steam_command = '-tenfoot -enableremotecontrol'
