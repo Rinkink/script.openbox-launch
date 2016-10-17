@@ -1,0 +1,14 @@
+# XBMC Media Center language file
+# Addon Name: Openbox Launch
+# Addon id: script.openbox-launch
+msgid ""
+msgstr ""
+
+msgctxt "#32001"
+msgid "General Settings"
+msgstr ""
+
+msgctxt "#32101"
+msgid "Program to run: "
+msgstr ""
+
