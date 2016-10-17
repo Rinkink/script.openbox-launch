@@ -1,35 +1,48 @@
+import logging, sys
+
+from distutils.spawn import find_executable
+
 import xbmcaddon
 import xbmcgui
- 
+
+
 addon       = xbmcaddon.Addon()
 addonname   = addon.getAddonInfo('name')
 addon_handle = int(sys.argv[1])
 
+#TODO: Log to /var or kodi user temp dir, set log level in settings
+logLevel = logging.getLevelName('DEBUG')
+logging.basicConfig(filename='/tmp/adon.log',level=logLevel)
+
 toRun = addon.getSetting('torun') # returns the string 'true' or 'false'
 stopPlayback = true
-
-
-# my_addon.setSetting('my_setting', 'false')
-
-# line1 = "Hello World!"
-# line2 = "We can write anything we want here"
-# line3 = "Using Python"
  
 # xbmcgui.Dialog().ok(addonname, line1, line2, line3)
-
 # steam_bin=`which steam`
 # steam_command = '-tenfoot -enableremotecontrol'
 
-s = subprocess.Popen(steamScript, shell=False)
-s.communicate()
+openboxCommand = find_executable('kodi-openbox-runprogram')
+steamCommand = find_executable('steam')
+logging.debug('openboxCommand:' + openboxCommand)
+logging.debug('steamCommand:' + steamCommand)
 
- if stopPlayback :
-        xbmc.Player().stop()
-    params = getFullPath(exePath, url, kiosk, userAgent)
-    s = subprocess.Popen(params, shell=False)
-    s.communicate()
-    xbmcplugin.endOfDirectory(pluginhandle)
-    xbmc.executebuiltin("ReplaceWindow(Programs,%s)" % ("plugin://"+addonID+"/"))
+openbox = '/usr/bin/kodi-openbox-runprogram'
+steam = '/usr/games/steam'
+steamArguments = [ '-tenfoot', '-enableremotecontrol']
+#steamCommand = 'kodi-openbox-runprogram /usr/games/steam -tenfoot -enableremotecontrol'
+
+all = [ openbox, steam ] + steamArguments
+
+logging.debug('allArgs:')
+logging.debug(all)
+
+if stopPlayback :
+    xbmc.Player().stop()
+
+s = subprocess.Popen([ openbox, steam ] + steamArguments, shell=False)
+s.communicate()
+# xbmcplugin.endOfDirectory(pluginhandle)
+xbmc.executebuiltin("ReplaceWindow(Programs,%s)" % ("plugin://"+addonID+"/"))
 
 
 # xbmcplugin.addDirectoryItem(handle=addon_handle, url=url, listitem=li)
